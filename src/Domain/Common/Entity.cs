@@ -1,6 +1,8 @@
-﻿namespace Zearain.AoC23.Domain.Common;
+﻿// <copyright file="Entity.cs" company="Zearain">
+// Copyright (c) Zearain. All rights reserved.
+// </copyright>
 
-using System.Collections.Generic;
+namespace Zearain.AoC23.Domain.Common;
 
 /// <summary>
 /// Represents an entity with a unique identifier of type <typeparamref name="TId"/>.
@@ -17,15 +19,17 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IDomainEventContain
     /// <param name="id">The unique identifier of the entity.</param>
     protected Entity(TId id)
     {
-        Id = id;
+        this.Id = id;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Entity{TId}"/> class.
     /// </summary>
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
     protected Entity()
     {
     }
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
     /// <summary>
     /// Gets or sets the unique identifier of the entity.
@@ -33,7 +37,7 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IDomainEventContain
     public TId Id { get; protected set; }
 
     /// <inheritdoc/>
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
     /// <summary>
     /// Determines whether two specified entities are equal.
@@ -60,30 +64,30 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IDomainEventContain
     /// <inheritdoc/>
     public override bool Equals(object? obj)
     {
-        return obj is Entity<TId> entity && entity.Id.Equals(Id);
+        return obj is Entity<TId> entity && entity.Id.Equals(this.Id);
     }
 
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        return Id.GetHashCode();
+        return this.Id.GetHashCode();
     }
 
     /// <inheritdoc/>
     public bool Equals(Entity<TId>? other)
     {
-        return Equals((object?)other);
+        return this.Equals((object?)other);
     }
 
     /// <inheritdoc/>
     public void AddDomainEvent(IDomainEvent domainEvent)
     {
-        domainEvents.Add(domainEvent);
+        this.domainEvents.Add(domainEvent);
     }
 
     /// <inheritdoc/>
     public void ClearDomainEvents()
     {
-        domainEvents.Clear();
+        this.domainEvents.Clear();
     }
 }

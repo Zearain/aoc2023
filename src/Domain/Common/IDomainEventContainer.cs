@@ -1,4 +1,8 @@
-﻿namespace Zearain.AoC23.Domain.Common;
+﻿// <copyright file="IDomainEventContainer.cs" company="Zearain">
+// Copyright (c) Zearain. All rights reserved.
+// </copyright>
+
+namespace Zearain.AoC23.Domain.Common;
 
 /// <summary>
 /// Represents an entity that contains domain events.
