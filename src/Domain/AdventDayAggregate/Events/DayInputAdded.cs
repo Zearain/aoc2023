@@ -11,5 +11,6 @@ namespace Zearain.AoC23.Domain.AdventDayAggregate.Events;
 /// Represents the event raised when a <see cref="DayInput"/> is added to an <see cref="AdventDay"/>.
 /// </summary>
 /// <param name="AdventDayId">The identity of the <see cref="AdventDay"/>.</param>
+/// <param name="DayNumber">The day number of the <see cref="AdventDay"/>.</param>
 /// <param name="AddedInput">The Added <see cref="DayInput"/>.</param>
-public record DayInputAdded(AdventDayId AdventDayId, DayInput AddedInput) : IDomainEvent;
+public record DayInputAdded(AdventDayId AdventDayId, int DayNumber, DayInput AddedInput) : IDomainEvent;

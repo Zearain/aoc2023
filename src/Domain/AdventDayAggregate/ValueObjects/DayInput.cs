@@ -11,6 +11,15 @@ namespace Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 /// </summary>
 public class DayInput : ValueObject
 {
+    private DayInput()
+    {
+    }
+
+    private DayInput(string rawInput)
+    {
+        this.RawInput = rawInput;
+    }
+
     /// <summary>
     /// Gets the raw text input.
     /// </summary>
@@ -35,6 +44,25 @@ public class DayInput : ValueObject
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return this.RawInput;
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="DayInput"/> from the given input.
+    /// </summary>
+    /// <param name="input">The input.</param>
+    /// <returns>A new instance of <see cref="DayInput"/>.</returns>
+    internal static DayInput Create(string input)
+    {
+        return new DayInput(input);
+    }
+
+    /// <summary>
+    /// Updates the <see cref="DayInput"/> with the given input.
+    /// </summary>
+    /// <param name="input">The input.</param>
+    internal void Update(string input)
+    {
+        this.RawInput = input;
     }
 
     private static string[] SplitLines(string input) => string.IsNullOrWhiteSpace(input) ? Array.Empty<string>() : input.Split(Environment.NewLine);
