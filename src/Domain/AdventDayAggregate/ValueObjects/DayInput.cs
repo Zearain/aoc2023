@@ -4,7 +4,7 @@
 
 using Zearain.AoC23.Domain.Common;
 
-namespace Zearain.AoC23.Domain.AdventDayAggregate.Entities;
+namespace Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
 /// <summary>
 /// Represents the input of an advent day.

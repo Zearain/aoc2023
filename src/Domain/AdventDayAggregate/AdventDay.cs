@@ -2,7 +2,6 @@
 // Copyright (c) Zearain. All rights reserved.
 // </copyright>
 
-using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 using Zearain.AoC23.Domain.AdventDayAggregate.Events;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 using Zearain.AoC23.Domain.Common;
