@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Zearain.AoC23.Application.Abstractions;
 using Zearain.AoC23.Application.Repositories;
 using Zearain.AoC23.Infrastructure.Persistence;
+using Zearain.AoC23.Infrastructure.Persistence.Inteceptors;
 using Zearain.AoC23.Infrastructure.Persistence.Repositories;
 using Zearain.AoC23.Infrastructure.Services;
 
@@ -45,6 +46,7 @@ public static class DependencyInjection
         {
             builder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
+        services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IAdventDayRepository, AdventDayRepository>();
 
         return services;

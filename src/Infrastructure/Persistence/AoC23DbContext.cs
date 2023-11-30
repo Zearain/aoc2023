@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 using Zearain.AoC23.Application.Abstractions;
 using Zearain.AoC23.Domain.AdventDayAggregate;
+using Zearain.AoC23.Domain.Common;
+using Zearain.AoC23.Infrastructure.Persistence.Inteceptors;
 
 namespace Zearain.AoC23.Infrastructure.Persistence;
 
@@ -14,13 +16,17 @@ namespace Zearain.AoC23.Infrastructure.Persistence;
 /// </summary>
 public class AoC23DbContext : DbContext, IUnitOfWork
 {
+    private readonly PublishDomainEventsInterceptor publishDomainEventsInterceptor;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AoC23DbContext"/> class.
     /// </summary>
     /// <param name="options">The database context options.</param>
-    public AoC23DbContext(DbContextOptions<AoC23DbContext> options)
+    /// <param name="publishDomainEventsInterceptor">The publish domain events interceptor.</param>
+    public AoC23DbContext(DbContextOptions<AoC23DbContext> options, PublishDomainEventsInterceptor publishDomainEventsInterceptor)
         : base(options)
     {
+        this.publishDomainEventsInterceptor = publishDomainEventsInterceptor;
     }
 
     /// <summary>
@@ -31,7 +37,16 @@ public class AoC23DbContext : DbContext, IUnitOfWork
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AoC23DbContext).Assembly);
+        modelBuilder
+            .Ignore<List<IDomainEvent>>()
+            .ApplyConfigurationsFromAssembly(typeof(AoC23DbContext).Assembly);
         base.OnModelCreating(modelBuilder);
+    }
+
+    /// <inheritdoc/>
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(this.publishDomainEventsInterceptor);
+        base.OnConfiguring(optionsBuilder);
     }
 }
