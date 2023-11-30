@@ -19,7 +19,7 @@ public static class AdventDayErrors
     /// <summary>
     /// Gets the error for a duplicate day number.
     /// </summary>
-    public static Error DuplicateDayNumber => Error.Validation("AdventDay.DuplicateDayNumber", "An Advent Day with the given day number already exists.");
+    public static Error DuplicateDayNumber => Error.Conflict("AdventDay.DuplicateDayNumber", "An Advent Day with the given day number already exists.");
 
     /// <summary>
     /// Gets the error for trying to add a solution without an input.

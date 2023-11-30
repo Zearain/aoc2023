@@ -1,3 +1,7 @@
+// <copyright file="Program.cs" company="Zearain">
+// Copyright (c) Zearain. All rights reserved.
+// </copyright>
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Zearain.AoC23.Frontend;

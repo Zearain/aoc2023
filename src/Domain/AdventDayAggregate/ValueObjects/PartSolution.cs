@@ -50,6 +50,15 @@ public sealed class PartSolution : ValueObject
         return new PartSolution(partNumber, solution);
     }
 
+    /// <summary>
+    /// Updates the solution to the part.
+    /// </summary>
+    /// <param name="newSolution">The new solution.</param>
+    public void Update(string newSolution)
+    {
+        this.Solution = newSolution;
+    }
+
     /// <inheritdoc/>
     public override IEnumerable<object> GetEqualityComponents()
     {

@@ -97,6 +97,13 @@ public class AdventDay : AggregateRoot<AdventDayId, Guid>
             return AdventDayErrors.NoInput;
         }
 
+        if (this.partSolutions.FirstOrDefault(ps => ps.PartNumber == partSolution.PartNumber) is PartSolution existingPartSolution)
+        {
+            existingPartSolution.Update(partSolution.Solution);
+            this.AddDomainEvent(new PartSolutionAdded((AdventDayId)this.Id, this.DayNumber, partSolution));
+            return Result.Updated;
+        }
+
         if (this.partSolutions.Count != 0 &&
             this.partSolutions.Max(ps => ps.PartNumber) != partSolution.PartNumber - 1)
         {

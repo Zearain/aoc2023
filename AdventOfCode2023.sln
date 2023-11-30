@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Domain", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Frontend", "src\Frontend\Zearain.AoC23.Frontend.csproj", "{56CCBCDC-42CC-4949-940E-6A155391A82E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Persistence", "src\Persistence\Zearain.AoC23.Persistence.csproj", "{05E50ABD-DFD8-4767-BF21-DAB6B8CB4552}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Infrastructure", "src\Infrastructure\Zearain.AoC23.Infrastructure.csproj", "{05E50ABD-DFD8-4767-BF21-DAB6B8CB4552}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.WebAPI", "src\WebAPI\Zearain.AoC23.WebAPI.csproj", "{65469320-74B3-4A13-9B6C-7B954184654C}"
 EndProject
@@ -19,9 +19,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D831259F-1323-4819-82EB-9B0A3201C138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,6 +41,9 @@ Global
 		{65469320-74B3-4A13-9B6C-7B954184654C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65469320-74B3-4A13-9B6C-7B954184654C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65469320-74B3-4A13-9B6C-7B954184654C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D831259F-1323-4819-82EB-9B0A3201C138} = {87DA7487-0B49-417E-B554-F660D1FEEBB9}
