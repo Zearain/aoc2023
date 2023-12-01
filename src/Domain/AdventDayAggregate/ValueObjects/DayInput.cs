@@ -40,18 +40,12 @@ public class DayInput : ValueObject
     /// </summary>
     public string[][] SectionLines => this.Sections.Select(SplitLines).ToArray();
 
-    /// <inheritdoc/>
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return this.RawInput;
-    }
-
     /// <summary>
     /// Creates a new <see cref="DayInput"/> from the given input.
     /// </summary>
     /// <param name="input">The input.</param>
     /// <returns>A new instance of <see cref="DayInput"/>.</returns>
-    internal static DayInput Create(string input)
+    public static DayInput Create(string input)
     {
         return new DayInput(input);
     }
@@ -60,9 +54,15 @@ public class DayInput : ValueObject
     /// Updates the <see cref="DayInput"/> with the given input.
     /// </summary>
     /// <param name="input">The input.</param>
-    internal void Update(string input)
+    public void Update(string input)
     {
         this.RawInput = input;
+    }
+
+    /// <inheritdoc/>
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return this.RawInput;
     }
 
     private static string[] SplitLines(string input) => string.IsNullOrWhiteSpace(input) ? Array.Empty<string>() : input.Split(Environment.NewLine);

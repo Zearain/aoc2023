@@ -68,14 +68,14 @@ public class AdventDayHttpClient
     /// Uploads a file for the specified Advent Day.
     /// </summary>
     /// <param name="adventDayId">The ID of the Advent Day to upload the file for.</param>
-    /// <param name="fileContent">The file content as base64 string.</param>
+    /// <param name="file">The file to upload.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public async Task UploadFileAsync(Guid adventDayId, string fileContent)
+    public async Task UploadFileAsync(Guid adventDayId, byte[] file)
     {
         var response = await this.httpClient.PostAsJsonAsync($"{BaseUrl}/{adventDayId}/input", new AdventDayFileInput
         {
             AdventDayId = adventDayId,
-            FileContent = fileContent,
+            File = file,
         });
         response.EnsureSuccessStatusCode();
     }

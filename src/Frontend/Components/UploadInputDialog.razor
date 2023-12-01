@@ -56,9 +56,8 @@
         var file = fileUpload.Files;
         var buffer = new byte[file.Size];
         await file.OpenReadStream().ReadAsync(buffer);
-        var fileContent = Convert.ToBase64String(buffer);
 
-        await AdventDayHttpClient.UploadFileAsync(AdventDayId, fileContent);
+        await AdventDayHttpClient.UploadFileAsync(AdventDayId, buffer);
 
         MudDialog.Close(DialogResult.Ok(true));
     }

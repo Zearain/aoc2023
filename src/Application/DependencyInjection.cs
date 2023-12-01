@@ -2,6 +2,8 @@
 // Copyright (c) Zearain. All rights reserved.
 // </copyright>
 
+using System.Reflection;
+
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,12 +18,17 @@ public static class DependencyInjection
     /// Adds the application layer dependencies to the service collection.
     /// </summary>
     /// <param name="services">The service collection.</param>
+    /// <param name="additionalAssemblies">Additional assemblies to scan for MediatR handlers.</param>
     /// <returns>The service collection with the application layer dependencies added.</returns>
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services, params Assembly[]? additionalAssemblies)
     {
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssemblies(typeof(DependencyInjection).Assembly, typeof(Domain.Common.IDomainEvent).Assembly);
+            if (additionalAssemblies != null)
+            {
+                configuration.RegisterServicesFromAssemblies(additionalAssemblies);
+            }
         });
 
         // services.AddValidatorsFromAssemblyContaining<DependencyInjection>();

@@ -15,7 +15,7 @@ public record AdventDayFileInput
     public Guid AdventDayId { get; init; }
 
     /// <summary>
-    /// Gets the file content as base64 string.
+    /// Gets the file as a byte array.
     /// </summary>
-    public string FileContent { get; init; } = null!;
+    public byte[] File { get; init; } = null!;
 }

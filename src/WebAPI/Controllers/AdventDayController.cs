@@ -73,7 +73,7 @@ public class AdventDayController : ControllerBase
     /// <param name="id">The ID of the Advent Day.</param>
     /// <returns>The Advent Day.</returns>
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetAdventDayAsync(Guid id)
+    public async Task<IActionResult> GetAdventDayAsync([FromRoute] Guid id)
     {
         var result = await this.sender.Send(new GetAdventDayQuery(AdventDayId.Create(id)));
 
@@ -102,8 +102,9 @@ public class AdventDayController : ControllerBase
     {
         var result = await this.sender.Send(new CreateAdventDayCommand(dayNumber));
 
+        // What the fuck!? What kind of black magic is ASP.NET performing which removes the Async part of the method name automatically!?
         return result.Match(
-            result => this.CreatedAtAction(nameof(this.GetAdventDayAsync), new { id = result.Id.Value }, new AdventDayResponse
+            result => this.CreatedAtAction("GetAdventDay", new { id = result.Id.Value }, new AdventDayResponse
             {
                 Id = result.Id.Value,
                 DayNumber = result.DayNumber,
@@ -124,7 +125,7 @@ public class AdventDayController : ControllerBase
     /// <param name="partNumber">The part number to solve.</param>
     /// <returns>A result indicating whether the part was solved.</returns>
     [HttpGet("{id:guid}/solve/{partNumber:int}")]
-    public async Task<IActionResult> SolvePartAsync(Guid id, int partNumber)
+    public async Task<IActionResult> SolvePartAsync([FromRoute] Guid id, [FromRoute] int partNumber)
     {
         var result = await this.sender.Send(new CreateAdventDayPartSolutionCommand(AdventDayId.Create(id), partNumber));
 
@@ -140,13 +141,11 @@ public class AdventDayController : ControllerBase
     /// <param name="input">The input to upload as base64 string.</param>
     /// <returns>A result indicating whether the input was uploaded.</returns>
     [HttpPost("{id:guid}/input")]
-    public async Task<IActionResult> UploadInputAsync(Guid id, [FromBody] AdventDayFileInput input)
+    public async Task<IActionResult> UploadInputAsync([FromRoute] Guid id, [FromBody] AdventDayFileInput input)
     {
-        var fileContent = Convert.FromBase64String(input.FileContent);
+        var fileText = Encoding.UTF8.GetString(input.File);
 
-        var fileText = Encoding.UTF8.GetString(fileContent);
-
-        var result = await this.sender.Send(new SetAdventDayInputCommand(AdventDayId.Create(id), input.FileContent));
+        var result = await this.sender.Send(new SetAdventDayInputCommand(AdventDayId.Create(id), fileText));
 
         return result.Match(
             result => this.Ok(result),
