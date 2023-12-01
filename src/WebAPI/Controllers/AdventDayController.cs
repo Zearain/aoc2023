@@ -54,7 +54,6 @@ public class AdventDayController : ControllerBase
             Id = adventDay.Id.Value,
             DayNumber = adventDay.DayNumber,
             HasInput = adventDay.HasInput,
-            Input = adventDay.Input?.RawInput,
             PartSolutions = adventDay.PartSolutions.Select(partSolution => new PartSolutionResponse
             {
                 PartNumber = partSolution.PartNumber,
@@ -81,7 +80,6 @@ public class AdventDayController : ControllerBase
                 Id = adventDay.Id.Value,
                 DayNumber = adventDay.DayNumber,
                 HasInput = adventDay.HasInput,
-                Input = adventDay.Input?.RawInput,
                 PartSolutions = adventDay.PartSolutions.Select(partSolution => new PartSolutionResponse
                 {
                     PartNumber = partSolution.PartNumber,
@@ -107,7 +105,6 @@ public class AdventDayController : ControllerBase
                 Id = result.Id.Value,
                 DayNumber = result.DayNumber,
                 HasInput = result.HasInput,
-                Input = result.Input?.RawInput,
                 PartSolutions = result.PartSolutions.Select(partSolution => new PartSolutionResponse
                 {
                     PartNumber = partSolution.PartNumber,

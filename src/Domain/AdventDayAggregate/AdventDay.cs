@@ -82,7 +82,7 @@ public class AdventDay : AggregateRoot<AdventDayId, Guid>
 
         this.HasInput = !string.IsNullOrEmpty(this.Input.RawInput);
 
-        this.AddDomainEvent(new DayInputAdded((AdventDayId)this.Id, this.DayNumber, this.Input));
+        this.AddDomainEvent(new DayInputAdded((AdventDayId)this.Id, this.Input, this.HasInput));
     }
 
     /// <summary>

@@ -25,11 +25,6 @@ public sealed record AdventDayResponse
     public bool HasInput { get; set; }
 
     /// <summary>
-    /// Gets or sets the input for the Advent Day.
-    /// </summary>
-    public string? Input { get; set; }
-
-    /// <summary>
     /// Gets or sets the solutions for the Advent Day.
     /// </summary>
     public IEnumerable<PartSolutionResponse> PartSolutions { get; set; } = Enumerable.Empty<PartSolutionResponse>();

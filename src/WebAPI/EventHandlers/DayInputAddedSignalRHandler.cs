@@ -31,6 +31,7 @@ public class DayInputAddedSignalRHandler : INotificationHandler<DayInputAdded>
     /// <inheritdoc/>
     public async Task Handle(DayInputAdded notification, CancellationToken cancellationToken)
     {
-        await this.hubContext.Clients.All.DayInputAdded(notification.AdventDayId.Value, notification.DayNumber, notification.AddedInput.RawInput);
+        await this.hubContext.Clients.All.DayInputAdded(
+            notification.AdventDayId.Value, notification.AddedInput?.RawInput ?? string.Empty, notification.HasInput);
     }
 }

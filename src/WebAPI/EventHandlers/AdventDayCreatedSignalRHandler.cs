@@ -37,7 +37,6 @@ public class AdventDayCreatedSignalRHandler : INotificationHandler<AdventDayCrea
             Id = notification.AdventDay.Id.Value,
             DayNumber = notification.AdventDay.DayNumber,
             HasInput = notification.AdventDay.HasInput,
-            Input = notification.AdventDay.Input?.RawInput,
             PartSolutions = notification.AdventDay.PartSolutions.Select(partSolution => new PartSolutionResponse
             {
                 PartNumber = partSolution.PartNumber,
