@@ -1,5 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
-<main>
-    @Body
-</main>
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudText Typo="Typo.h5" Class="ml-3">Advent of Code 2023</MudText>
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer Class="mt-16">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

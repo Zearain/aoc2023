@@ -1,0 +1,28 @@
+@using Zearain.AoC23.Contracts.Responses
+
+@inject AdventDayHttpClient AdventDayHttpClient
+@inject IDialogService DialogService
+
+<MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Days</MudText>
+<MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="CreateDay">Create Day</MudButton>
+
+<MudGrid class="mt-8">
+    @foreach (var adventDay in adventDays)
+    {
+        <AdventDayItem AdventDay="@adventDay" />
+    }
+</MudGrid>
+
+@code {
+    private List<AdventDayResponse> adventDays = new List<AdventDayResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        adventDays = await AdventDayHttpClient.GetAdventDays();
+    }
+
+    private async Task CreateDay()
+    {
+        var dialogResult = await DialogService.ShowAsync<CreateAdventDayDialog>("Create Advent Day");
+    }
+}

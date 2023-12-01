@@ -1,0 +1,57 @@
+﻿@using Zearain.AoC23.Contracts.Responses
+
+@inject AdventDayHttpClient AdventDayHttpClient
+@inject IDialogService DialogService
+
+<MudItem xs="12" sm="6" md="4">
+    <MudCard Elevation="25" Class="rounded-lg pb-4">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5" Align="Align.Center">Day @AdventDay.DayNumber</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <div class="d-flex justify-center">
+                <MudText Typo="Typo.h3">@(AdventDay.HasInput ? "Ready" : "No Input")</MudText>
+            </div>
+            <MudList Class="mx-auto mt-4">
+                @foreach (var partSolution in AdventDay.PartSolutions)
+                {
+                    <MudListItem Icon="@Icons.Material.Filled.LiveHelp">
+                        @partSolution.PartNumber
+                    </MudListItem>
+                }
+            </MudList>
+        </MudCardContent>
+        <MudCardActions Class="d-flex justify-center">
+            @if (AdventDay.HasInput)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width:50%;" OnClick="@(async () => await SolvePart(1))">Solve Part 1</MudButton>
+                if (AdventDay.PartSolutions.Count() > 0)
+                {
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width:50%;" OnClick="@(async () => await SolvePart(1))">Solve Part 2</MudButton>
+                }
+            }
+            else
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Style="width:50%;" OnClick="UploadInput">Upload Input</MudButton>
+            }
+        </MudCardActions>
+    </MudCard>
+</MudItem>
+
+@code {
+    [Parameter, EditorRequired]
+    public AdventDayResponse AdventDay { get; set; } = null!;
+
+    public async Task UploadInput()
+    {
+        var parameters = new DialogParameters<UploadInputDialog> { { x => x.AdventDayId, AdventDay.Id } };
+        var dialogResult = await DialogService.ShowAsync<UploadInputDialog>("Upload Input", parameters);
+    }
+
+    public async Task SolvePart(int partNumber)
+    {
+        await AdventDayHttpClient.SolvePart(AdventDay.Id, partNumber);
+    }
+}
