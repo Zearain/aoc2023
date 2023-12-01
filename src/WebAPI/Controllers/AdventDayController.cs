@@ -6,6 +6,7 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Zearain.AoC23.Application;
 using Zearain.AoC23.Application.AdventDays.Commands;
 using Zearain.AoC23.Application.AdventDays.Queries;
 using Zearain.AoC23.Contracts.Responses;
@@ -114,5 +115,21 @@ public class AdventDayController : ControllerBase
                 }),
             }),
             errors => this.Problem($"{errors.Count} errors occurred while creating Advent Day: {string.Join(", ", errors)}"));
+    }
+
+    /// <summary>
+    /// Solves a part of an Advent Day.
+    /// </summary>
+    /// <param name="id">The ID of the Advent Day.</param>
+    /// <param name="partNumber">The part number to solve.</param>
+    /// <returns>A result indicating whether the part was solved.</returns>
+    [HttpGet("{id:guid}/solve/{partNumber:int}")]
+    public async Task<IActionResult> SolvePartAsync(Guid id, int partNumber)
+    {
+        var result = await this.sender.Send(new CreateAdventDayPartSolutionCommand(AdventDayId.Create(id), partNumber));
+
+        return result.Match(
+            result => this.Ok(result),
+            errors => this.Problem($"{errors.Count} errors occurred while solving part: {string.Join(", ", errors)}"));
     }
 }
