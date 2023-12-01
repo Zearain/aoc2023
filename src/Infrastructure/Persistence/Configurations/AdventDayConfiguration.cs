@@ -5,6 +5,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Zearain.AoC23.Domain.AdventDayAggregate;
+using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
 namespace Zearain.AoC23.Infrastructure.Persistence.Configurations;
@@ -60,7 +61,14 @@ public class AdventDayConfiguration : IEntityTypeConfiguration<AdventDay>
 
                 psb.WithOwner().HasForeignKey("AdventDayId");
 
-                psb.HasKey(nameof(PartSolution.PartNumber), "AdventDayId");
+                psb.HasKey(nameof(PartSolution.Id), "AdventDayId");
+
+                psb.Property(ps => ps.Id)
+                    .ValueGeneratedNever()
+                    .HasConversion(
+                        id => id.Value,
+                        value => PartSolutionId.Create(value))
+                    .IsRequired();
 
                 psb.Property(ps => ps.PartNumber)
                     .IsRequired();

@@ -3,6 +3,8 @@
 // </copyright>
 
 using ErrorOr;
+
+using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 using Zearain.AoC23.Domain.AdventDayAggregate.Errors;
 using Zearain.AoC23.Domain.AdventDayAggregate.Events;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
@@ -100,7 +102,7 @@ public class AdventDay : AggregateRoot<AdventDayId, Guid>
         if (this.partSolutions.FirstOrDefault(ps => ps.PartNumber == partSolution.PartNumber) is PartSolution existingPartSolution)
         {
             existingPartSolution.Update(partSolution.Solution);
-            this.AddDomainEvent(new PartSolutionAdded((AdventDayId)this.Id, this.DayNumber, partSolution));
+            this.AddDomainEvent(new PartSolutionAdded((AdventDayId)this.Id, partSolution));
             return Result.Updated;
         }
 
@@ -111,7 +113,7 @@ public class AdventDay : AggregateRoot<AdventDayId, Guid>
         }
 
         this.partSolutions.Add(partSolution);
-        this.AddDomainEvent(new PartSolutionAdded((AdventDayId)this.Id, this.DayNumber, partSolution));
+        this.AddDomainEvent(new PartSolutionAdded((AdventDayId)this.Id, partSolution));
         return Result.Updated;
     }
 }

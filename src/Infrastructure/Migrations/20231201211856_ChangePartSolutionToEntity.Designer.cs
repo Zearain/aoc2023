@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zearain.AoC23.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using Zearain.AoC23.Infrastructure.Persistence;
 namespace Zearain.AoC23.Infrastructure.Migrations
 {
     [DbContext(typeof(AoC23DbContext))]
-    partial class AoC23DbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201211856_ChangePartSolutionToEntity")]
+    partial class ChangePartSolutionToEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -7,6 +7,7 @@ using ErrorOr;
 using MediatR;
 
 using Zearain.AoC23.Domain.AdventDayAggregate;
+using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
 namespace Zearain.AoC23.Application.Abstractions;

@@ -8,7 +8,7 @@ using ErrorOr;
 
 using MediatR;
 
-using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
+using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 
 namespace Zearain.AoC23.Application;
 

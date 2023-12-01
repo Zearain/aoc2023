@@ -5,20 +5,22 @@
 using ErrorOr;
 
 using Zearain.AoC23.Domain.AdventDayAggregate.Errors;
+using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 using Zearain.AoC23.Domain.Common;
 
-namespace Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
+namespace Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 
 /// <summary>
 /// Represents the solution to a part of an Advent Day.
 /// </summary>
-public sealed class PartSolution : ValueObject
+public sealed class PartSolution : Entity<PartSolutionId>
 {
     private PartSolution()
     {
     }
 
-    private PartSolution(int partNumber, string solution)
+    private PartSolution(PartSolutionId id, int partNumber, string solution)
+        : base(id)
     {
         this.PartNumber = partNumber;
         this.Solution = solution;
@@ -47,7 +49,7 @@ public sealed class PartSolution : ValueObject
             return AdventDayErrors.InvalidPartNumber;
         }
 
-        return new PartSolution(partNumber, solution);
+        return new PartSolution(PartSolutionId.New(), partNumber, solution);
     }
 
     /// <summary>
@@ -57,12 +59,5 @@ public sealed class PartSolution : ValueObject
     public void Update(string newSolution)
     {
         this.Solution = newSolution;
-    }
-
-    /// <inheritdoc/>
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return this.PartNumber;
-        yield return this.Solution;
     }
 }
