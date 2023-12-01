@@ -54,9 +54,8 @@
     private async Task UploadFile()
     {
         var file = fileUpload.Files;
-        var stream = file.OpenReadStream();
         var buffer = new byte[file.Size];
-        await stream.ReadAsync(buffer, 0, (int)file.Size);
+        await file.OpenReadStream().ReadAsync(buffer);
         var fileContent = Convert.ToBase64String(buffer);
 
         await AdventDayHttpClient.UploadFileAsync(AdventDayId, fileContent);
