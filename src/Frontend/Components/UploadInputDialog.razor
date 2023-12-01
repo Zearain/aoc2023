@@ -10,7 +10,7 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <MudFileUpload T="IBrowserFile">
+        <MudFileUpload T="IBrowserFile" @ref="fileUpload">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
                         Variant="Variant.Filled"
@@ -38,7 +38,7 @@
 </MudDialog>
 
 @code {
-    private IBrowserFile context = null!;
+    private MudFileUpload<IBrowserFile> fileUpload = null!;
 
     [CascadingParameter]
     public MudDialogInstance MudDialog { get; set; } = null!;
@@ -53,7 +53,7 @@
 
     private async Task UploadFile()
     {
-        var file = context;
+        var file = fileUpload.Files;
         var stream = file.OpenReadStream();
         var buffer = new byte[file.Size];
         await stream.ReadAsync(buffer, 0, (int)file.Size);

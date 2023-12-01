@@ -2,6 +2,8 @@
 // Copyright (c) Zearain. All rights reserved.
 // </copyright>
 
+using System.Text;
+
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Zearain.AoC23.Application;
 using Zearain.AoC23.Application.AdventDays.Commands;
 using Zearain.AoC23.Application.AdventDays.Queries;
+using Zearain.AoC23.Contracts.Requests;
 using Zearain.AoC23.Contracts.Responses;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
@@ -95,7 +98,7 @@ public class AdventDayController : ControllerBase
     /// <param name="dayNumber">The day number of the new advent day.</param>
     /// <returns>The new advent day.</returns>
     [HttpPost]
-    public async Task<IActionResult> CreateAdventDayAsync(int dayNumber)
+    public async Task<IActionResult> CreateAdventDayAsync([FromQuery] int dayNumber)
     {
         var result = await this.sender.Send(new CreateAdventDayCommand(dayNumber));
 
@@ -128,5 +131,25 @@ public class AdventDayController : ControllerBase
         return result.Match(
             result => this.Ok(result),
             errors => this.Problem($"{errors.Count} errors occurred while solving part: {string.Join(", ", errors)}"));
+    }
+
+    /// <summary>
+    /// Uploads the input for an Advent Day.
+    /// </summary>
+    /// <param name="id">The ID of the Advent Day.</param>
+    /// <param name="input">The input to upload as base64 string.</param>
+    /// <returns>A result indicating whether the input was uploaded.</returns>
+    [HttpPost("{id:guid}/input")]
+    public async Task<IActionResult> UploadInputAsync(Guid id, [FromBody] AdventDayFileInput input)
+    {
+        var fileContent = Convert.FromBase64String(input.FileContent);
+
+        var fileText = Encoding.UTF8.GetString(fileContent);
+
+        var result = await this.sender.Send(new SetAdventDayInputCommand(AdventDayId.Create(id), input.FileContent));
+
+        return result.Match(
+            result => this.Ok(result),
+            errors => this.Problem($"{errors.Count} errors occurred while uploading input: {string.Join(", ", errors)}"));
     }
 }

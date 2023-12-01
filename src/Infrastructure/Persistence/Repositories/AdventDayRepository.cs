@@ -9,6 +9,7 @@ using Zearain.AoC23.Application.Abstractions;
 using Zearain.AoC23.Application.Repositories;
 using Zearain.AoC23.Domain.AdventDayAggregate;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
+using Zearain.AoC23.Domain.Common;
 
 namespace Zearain.AoC23.Infrastructure.Persistence.Repositories;
 
@@ -36,6 +37,15 @@ public sealed class AdventDayRepository : Repository<AdventDay, AdventDayId>, IA
             .AsNoTracking()
             .SingleOrDefaultAsync(ad => ad.DayNumber == dayNumber);
 
+        return adventDay is null
+            ? Error.NotFound()
+            : adventDay;
+    }
+
+    /// <inheritdoc/>
+    public override async Task<ErrorOr<AdventDay>> GetByIdAsync(AdventDayId id, CancellationToken cancellationToken = default)
+    {
+        var adventDay = await this.dbSet.FirstOrDefaultAsync(ad => ad.Id == id, cancellationToken);
         return adventDay is null
             ? Error.NotFound()
             : adventDay;

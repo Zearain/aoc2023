@@ -15,9 +15,10 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddSingleton<AdventDayHubListener>();
 
 builder.Services.AddMudServices();
-var adventDayUrl = builder.Configuration.GetValue<string>("AdventDayUrl");
+var adventDayUrl = builder.Configuration.GetValue<string>("APIUrl");
 builder.Services.AddHttpClient<AdventDayHttpClient>(client => client.BaseAddress = new Uri(adventDayUrl ?? builder.HostEnvironment.BaseAddress));
 
 await builder.Build().RunAsync();

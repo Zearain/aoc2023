@@ -1,5 +1,8 @@
-﻿@inject AdventDayHttpClient AdventDayHttpClient
+﻿@implements IDisposable
+
+@inject AdventDayHttpClient AdventDayHttpClient
 @inject IDialogService DialogService
+@inject AdventDayHubListener AdventDayHubListener
 
 <MudItem xs="12" sm="6" md="4">
     <MudCard Elevation="25" Class="rounded-lg pb-4">
@@ -42,14 +45,63 @@
     [Parameter, EditorRequired]
     public AdventDayResponse AdventDay { get; set; } = null!;
 
-    public async Task UploadInput()
+    public void Dispose()
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        AdventDayHubListener.OnDayInputAdded += DayInputAdded;
+        AdventDayHubListener.OnPartSolutionAdded += PartSolutionAdded;
+    }
+
+    private async Task UploadInput()
     {
         var parameters = new DialogParameters<UploadInputDialog> { { x => x.AdventDayId, AdventDay.Id } };
         var dialogResult = await DialogService.ShowAsync<UploadInputDialog>("Upload Input", parameters);
     }
 
-    public async Task SolvePart(int partNumber)
+    private async Task SolvePart(int partNumber)
     {
         await AdventDayHttpClient.SolvePartAsync(AdventDay.Id, partNumber);
+    }
+
+    
+
+    private async Task DayInputAdded(Guid adventDayId, string input, bool hasInput)
+    {
+        if (adventDayId != AdventDay.Id)
+        {
+            return;
+        }
+
+        AdventDay.HasInput = hasInput;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task PartSolutionAdded(Guid adventDayId, PartSolutionResponse partSolution)
+    {
+        if (adventDayId != AdventDay.Id)
+        {
+            return;
+        }
+
+        var existingPartSolution = AdventDay.PartSolutions.FirstOrDefault(x => x.PartNumber == partSolution.PartNumber);
+        if (existingPartSolution != null)
+        {
+            var newList = AdventDay.PartSolutions.ToList();
+            newList.Remove(existingPartSolution);
+            newList.Add(partSolution);
+            AdventDay.PartSolutions = newList;
+        }
+        else
+        {
+            var newList = AdventDay.PartSolutions.ToList();
+            newList.Add(partSolution);
+            AdventDay.PartSolutions = newList;
+        }
+
+        await InvokeAsync(StateHasChanged);
     }
 }

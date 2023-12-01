@@ -72,7 +72,7 @@ public class AdventDayHttpClient
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public async Task UploadFileAsync(Guid adventDayId, string fileContent)
     {
-        var response = await this.httpClient.PostAsJsonAsync($"{BaseUrl}/{adventDayId}/upload", new AdventDayFileInput
+        var response = await this.httpClient.PostAsJsonAsync($"{BaseUrl}/{adventDayId}/input", new AdventDayFileInput
         {
             AdventDayId = adventDayId,
             FileContent = fileContent,
