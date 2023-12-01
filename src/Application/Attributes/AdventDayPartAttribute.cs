@@ -11,6 +11,17 @@ namespace Zearain.AoC23.Application.Attributes;
 public sealed class AdventDayPartAttribute : Attribute
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="AdventDayPartAttribute"/> class.
+    /// </summary>
+    /// <param name="dayNumber">The day number.</param>
+    /// <param name="partNumber">The part number.</param>
+    public AdventDayPartAttribute(int dayNumber, int partNumber)
+    {
+        this.DayNumber = dayNumber;
+        this.PartNumber = partNumber;
+    }
+
+    /// <summary>
     /// Gets the day number.
     /// </summary>
     public int DayNumber { get; }

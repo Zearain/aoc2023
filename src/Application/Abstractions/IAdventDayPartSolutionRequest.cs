@@ -24,5 +24,5 @@ public interface IAdventDayPartSolutionRequest : IRequest<ErrorOr<PartSolution>>
     /// <summary>
     /// Gets the input to use to calculate the solution.
     /// </summary>
-    string Input { get; }
+    DayInput Input { get; }
 }
