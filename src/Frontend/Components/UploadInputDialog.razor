@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@inject AdventDayHttpClient AdventDayHttpClient
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.FileUpload" Class="mr-3 mb-n1"/>
+            Upload File
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudFileUpload T="IBrowserFile">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                        Variant="Variant.Filled"
+                        Color="Color.Primary"
+                        for="@context.Id">
+                    Upload File
+                </MudButton>
+            </ButtonTemplate>
+            <SelectedTemplate>
+                @if (context != null)
+                {
+                    <MudText>@context.Name</MudText>
+                }
+                else
+                {
+                    <MudText>No File</MudText>
+                }
+            </SelectedTemplate>
+        </MudFileUpload>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="UploadFile">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private IBrowserFile context = null!;
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter, EditorRequired]
+    public Guid AdventDayId { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task UploadFile()
+    {
+        var file = context;
+        var stream = file.OpenReadStream();
+        var buffer = new byte[file.Size];
+        await stream.ReadAsync(buffer, 0, (int)file.Size);
+        var fileContent = Convert.ToBase64String(buffer);
+
+        await AdventDayHttpClient.UploadFileAsync(AdventDayId, fileContent);
+
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+}

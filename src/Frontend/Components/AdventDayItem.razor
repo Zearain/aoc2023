@@ -1,6 +1,4 @@
-﻿@using Zearain.AoC23.Contracts.Responses
-
-@inject AdventDayHttpClient AdventDayHttpClient
+﻿@inject AdventDayHttpClient AdventDayHttpClient
 @inject IDialogService DialogService
 
 <MudItem xs="12" sm="6" md="4">
@@ -52,6 +50,6 @@
 
     public async Task SolvePart(int partNumber)
     {
-        await AdventDayHttpClient.SolvePart(AdventDay.Id, partNumber);
+        await AdventDayHttpClient.SolvePartAsync(AdventDay.Id, partNumber);
     }
 }
