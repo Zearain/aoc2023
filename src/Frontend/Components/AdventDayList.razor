@@ -38,7 +38,7 @@
         AdventDayHubListener.OnAdventDayCreated += AdventDayHubListener_OnAdventDayCreated;
 
         adventDays.Clear();
-        adventDays.AddRange(await AdventDayHttpClient.GetAdventDaysAsync());
+        adventDays.AddRange((await AdventDayHttpClient.GetAdventDaysAsync()).OrderBy(x => x.DayNumber));
 
         await InvokeAsync(StateHasChanged);
     }
