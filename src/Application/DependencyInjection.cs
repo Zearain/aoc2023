@@ -7,6 +7,8 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
+using Zearain.AoC23.Application.AdventDays.Services;
+
 namespace Zearain.AoC23.Application;
 
 /// <summary>
@@ -30,6 +32,8 @@ public static class DependencyInjection
                 configuration.RegisterServicesFromAssemblies(additionalAssemblies);
             }
         });
+
+        services.AddScoped<ColoredCubeGameService>();
 
         // services.AddValidatorsFromAssemblyContaining<DependencyInjection>();
         return services;

@@ -81,7 +81,7 @@ public class CreateAdventDayPartSolutionCommandHandler : IRequestHandler<CreateA
         return Result.Updated;
     }
 
-    private static IAdventDayPartSolutionRequest? CreateAdventDayPartSolutionRequest(AdventDay adventDay, int partNumber)
+    private static AdventDayPartSolutionRequest? CreateAdventDayPartSolutionRequest(AdventDay adventDay, int partNumber)
     {
         var requestType = GetImplementedDaySolverTypes()
             .FirstOrDefault(x => x.GetCustomAttribute<AdventDayPartAttribute>()?.DayNumber == adventDay.DayNumber &&
@@ -89,13 +89,13 @@ public class CreateAdventDayPartSolutionCommandHandler : IRequestHandler<CreateA
 
         return requestType is null
             ? null
-            : Activator.CreateInstance(requestType, new object[] { partNumber, adventDay.Input! }) as IAdventDayPartSolutionRequest;
+            : Activator.CreateInstance(requestType, new object[] { partNumber, adventDay.Input! }) as AdventDayPartSolutionRequest;
     }
 
     private static IEnumerable<Type> GetImplementedDaySolverTypes()
     {
-        return typeof(IAdventDayPartSolutionRequest).Assembly.GetTypes()
-            .Where(x => typeof(IAdventDayPartSolutionRequest).IsAssignableFrom(x) &&
+        return typeof(AdventDayPartSolutionRequest).Assembly.GetTypes()
+            .Where(x => typeof(AdventDayPartSolutionRequest).IsAssignableFrom(x) &&
                 !x.IsInterface &&
                 !x.IsAbstract &&
                 x.GetCustomAttribute<AdventDayPartAttribute>() is not null);

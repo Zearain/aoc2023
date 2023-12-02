@@ -11,7 +11,7 @@ using MediatR;
 using Zearain.AoC23.Domain.AdventDayAggregate.Entities;
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
-namespace Zearain.AoC23.Application;
+namespace Zearain.AoC23.Application.AdventDays.Solutions;
 
 /// <summary>
 /// Represents a handler for <see cref="SolveDay1Part1Command"/>.

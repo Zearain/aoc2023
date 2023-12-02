@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.WebAPI", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Contracts", "src\Contracts\Zearain.AoC23.Contracts.csproj", "{E7EE0CB8-F0E3-4B2D-BD6A-8DA6D87D9A6D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AD3DAEC-5DBD-4DD1-BF2E-C8838CF301E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zearain.AoC23.Application.Tests", "tests\Application.Tests\Zearain.AoC23.Application.Tests.csproj", "{A737BDDE-1584-497B-B18E-AC8B699A6391}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{E7EE0CB8-F0E3-4B2D-BD6A-8DA6D87D9A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7EE0CB8-F0E3-4B2D-BD6A-8DA6D87D9A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7EE0CB8-F0E3-4B2D-BD6A-8DA6D87D9A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A737BDDE-1584-497B-B18E-AC8B699A6391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A737BDDE-1584-497B-B18E-AC8B699A6391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A737BDDE-1584-497B-B18E-AC8B699A6391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A737BDDE-1584-497B-B18E-AC8B699A6391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +66,6 @@ Global
 		{05E50ABD-DFD8-4767-BF21-DAB6B8CB4552} = {87DA7487-0B49-417E-B554-F660D1FEEBB9}
 		{65469320-74B3-4A13-9B6C-7B954184654C} = {87DA7487-0B49-417E-B554-F660D1FEEBB9}
 		{E7EE0CB8-F0E3-4B2D-BD6A-8DA6D87D9A6D} = {87DA7487-0B49-417E-B554-F660D1FEEBB9}
+		{A737BDDE-1584-497B-B18E-AC8B699A6391} = {0AD3DAEC-5DBD-4DD1-BF2E-C8838CF301E6}
 	EndGlobalSection
 EndGlobal
