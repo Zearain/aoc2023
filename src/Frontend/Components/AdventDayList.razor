@@ -25,7 +25,6 @@
 
 @code {
     private int dayNumber;
-    private bool processingCreateDay;
 
     private List<AdventDayResponse> adventDays = new List<AdventDayResponse>();
 
@@ -46,24 +45,13 @@
 
     private async Task CreateDay()
     {
-        processingCreateDay = true;
-        var createdDay = await AdventDayHttpClient.CreateAdventDayAsync(dayNumber);
-        
-        if (adventDays.Any(x => x.DayNumber == createdDay.DayNumber))
-        {
-            processingCreateDay = false;
-            return;
-        }
-
-        adventDays.Add(createdDay);
-        processingCreateDay = false;
-        await InvokeAsync(StateHasChanged);
+        await AdventDayHttpClient.CreateAdventDayAsync(dayNumber);
     }
     
 
     private async Task AdventDayHubListener_OnAdventDayCreated(AdventDayResponse adventDay)
     {
-        if (adventDays.Any(x => x.DayNumber == adventDay.DayNumber) || processingCreateDay)
+        if (adventDays.Any(x => x.DayNumber == adventDay.DayNumber))
         {
             return;
         }

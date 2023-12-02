@@ -47,7 +47,7 @@ public class DayInput : ValueObject
     /// <returns>A new instance of <see cref="DayInput"/>.</returns>
     public static DayInput Create(string input)
     {
-        return new DayInput(input);
+        return new DayInput(input.TrimEnd(Environment.NewLine.ToCharArray()));
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public class DayInput : ValueObject
     /// <param name="input">The input.</param>
     public void Update(string input)
     {
-        this.RawInput = input;
+        this.RawInput = input.TrimEnd(Environment.NewLine.ToCharArray());
     }
 
     /// <inheritdoc/>
