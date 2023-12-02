@@ -94,6 +94,33 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
         actual.Should().Be(8);
     }
 
+    [TestCaseSource(nameof(MinimumSetTestCases))]
+    public void ColoredCubeGameMinimumSet_ShouldReturnCorrectResult(ColoredCubeGame game, ColoredCubeSet expected, int expectedSetPower)
+    {
+        // Arrange
+        var service = new ColoredCubeGameService();
+
+        // Act
+        var actual = game.MinimumSet;
+
+        // Assert
+        actual.Should().BeEquivalentTo(expected);
+        actual.Power.Should().Be(expectedSetPower);
+    }
+
+    [Test(Description = "Should return the sum of the power of the minimal sets of all games")]
+    public void SumMinimalSetsPower_ShouldReturnCorrectResult()
+    {
+        // Arrange
+        var service = new ColoredCubeGameService();
+
+        // Act
+        var actual = ColoredCubeGameService.SumMinimalSetsPower(TestInput);
+
+        // Assert
+        actual.Should().Be(2286);
+    }
+
     private static IEnumerable<TestCaseData> ParseGameTestCases()
     {
         for (var i = 0; i < TestInput.Lines.Length; i++)
@@ -109,5 +136,14 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
         yield return new TestCaseData(TestGames[2], false);
         yield return new TestCaseData(TestGames[3], false);
         yield return new TestCaseData(TestGames[4], true);
+    }
+
+    private static IEnumerable<TestCaseData> MinimumSetTestCases()
+    {
+        yield return new TestCaseData(TestGames[0], new ColoredCubeSet(4, 2, 6), 48);
+        yield return new TestCaseData(TestGames[1], new ColoredCubeSet(1, 3, 4), 12);
+        yield return new TestCaseData(TestGames[2], new ColoredCubeSet(20, 13, 6), 1560);
+        yield return new TestCaseData(TestGames[3], new ColoredCubeSet(14, 3, 15), 630);
+        yield return new TestCaseData(TestGames[4], new ColoredCubeSet(6, 3, 2), 36);
     }
 }

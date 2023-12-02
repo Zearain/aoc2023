@@ -45,6 +45,17 @@ public sealed class ColoredCubeGameService
     }
 
     /// <summary>
+    /// Sums the power of the minimal sets for the given input.
+    /// </summary>
+    /// <param name="input">The given input.</param>
+    /// <returns>The sum of the power of the minimal sets.</returns>
+    public static int SumMinimalSetsPower(DayInput input)
+    {
+        var games = input.Lines.Select(ParseGame).ToArray();
+        return games.Sum(game => game.MinimumSet.Power);
+    }
+
+    /// <summary>
     /// Parses the game from the given input line.
     /// </summary>
     /// <param name="input">The input line.</param>
