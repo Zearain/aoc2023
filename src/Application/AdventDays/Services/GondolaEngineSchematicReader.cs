@@ -45,23 +45,37 @@ public sealed class GondolaEngineSchematicReader
             {
                 schematic[y, x] = lines[y][x];
 
-                if (char.IsDigit(lines[y][x]))
+                if (char.IsNumber(lines[y][x]))
                 {
                     currentPartNumberDigits.Add((lines[y][x], x));
+
+                    if (x == lines[y].Length - 1)
+                    {
+                        var partNumber = int.Parse(string.Join(string.Empty, currentPartNumberDigits.Select(d => d.Digit)), CultureInfo.InvariantCulture);
+                        var partNumberX = currentPartNumberDigits.Select(d => d.X).ToArray();
+                        currentPartNumberDigits.Clear();
+
+                        parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
+                        this.logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
+                    }
+
+                    continue;
                 }
-                else if (currentPartNumberDigits.Any())
+
+                if (currentPartNumberDigits.Any())
                 {
                     var partNumber = int.Parse(string.Join(string.Empty, currentPartNumberDigits.Select(d => d.Digit)), CultureInfo.InvariantCulture);
                     var partNumberX = currentPartNumberDigits.Select(d => d.X).ToArray();
                     currentPartNumberDigits.Clear();
+
                     parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
                     this.logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
                 }
 
-                if (!char.IsDigit(lines[y][x]) && lines[y][x] != '.')
+                if (lines[y][x] != '.')
                 {
-                    this.logger.LogTrace("Found symbol {Symbol} at {Y},{X}", lines[y][x], y, x);
                     symbols.Add(new GondolaEngineSchematicSymbol(lines[y][x], y, x));
+                    this.logger.LogTrace("Found symbol {Symbol} at {Y},{X}", lines[y][x], y, x);
                 }
             }
         }
@@ -71,7 +85,7 @@ public sealed class GondolaEngineSchematicReader
 
     private static bool IsAdjacent(GondolaEngineSchematicPart partNumber, GondolaEngineSchematicSymbol symbol)
     {
-        return Math.Abs(symbol.Y - partNumber.Y) <= 1 && partNumber.X.Any(partNumberX => Math.Abs(symbol.X - partNumberX) <= 1);
+        return partNumber.X.Any(partNumberX => Math.Abs(symbol.X - partNumberX) <= 1 && Math.Abs(symbol.Y - partNumber.Y) <= 1);
     }
 }
 

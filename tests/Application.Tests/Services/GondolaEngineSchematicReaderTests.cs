@@ -214,6 +214,8 @@ public class GondolaEngineSchematicReaderTests
         var schematic = reader.Read(testInput);
         var sum = schematic.PartNumbers.Sum(p => p.Number);
 
+        Console.WriteLine(sum);
+
         // Assert
         sum.Should().BeGreaterThan(531267);
     }
