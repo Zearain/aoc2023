@@ -3,6 +3,7 @@
 // </copyright>
 
 global using FluentAssertions;
+global using Moq;
 global using NUnit.Framework;
 global using Zearain.AoC23.Application.Abstractions;
 global using Zearain.AoC23.Application.AdventDays.Commands;

@@ -2,7 +2,7 @@
 // Copyright (c) Zearain. All rights reserved.
 // </copyright>
 
-namespace Zearain.AoC23.Application.Tests;
+namespace Zearain.AoC23.Application.Tests.Services;
 
 /// <summary>
 /// Tests for <see cref="ColoredCubeGameService"/>.

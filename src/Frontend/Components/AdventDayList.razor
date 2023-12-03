@@ -17,7 +17,7 @@
 </MudCard>
 
 <MudGrid class="mt-8">
-    @foreach (var adventDay in adventDays)
+    @foreach (var adventDay in adventDays.OrderBy(x => x.DayNumber))
     {
         <AdventDayItem AdventDay="@adventDay" />
     }
@@ -38,7 +38,7 @@
         AdventDayHubListener.OnAdventDayCreated += AdventDayHubListener_OnAdventDayCreated;
 
         adventDays.Clear();
-        adventDays.AddRange((await AdventDayHttpClient.GetAdventDaysAsync()).OrderBy(x => x.DayNumber));
+        adventDays.AddRange(await AdventDayHttpClient.GetAdventDaysAsync());
 
         await InvokeAsync(StateHasChanged);
     }

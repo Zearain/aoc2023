@@ -34,6 +34,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<ColoredCubeGameService>();
+        services.AddScoped<GondolaEngineSchematicReader>();
 
         // services.AddValidatorsFromAssemblyContaining<DependencyInjection>();
         return services;
