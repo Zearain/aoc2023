@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 
-namespace Zearain.AoC23.Application.AdventDays.Services;
+namespace Zearain.AoC23.Application.AdventDays.Services.GondolaEngineSchematics;
 
 /// <summary>
 /// Represents a reader for Gondola Engine Schematics.
@@ -56,7 +56,7 @@ public sealed class GondolaEngineSchematicReader
                         currentPartNumberDigits.Clear();
 
                         parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
-                        this.logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
+                        logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
                     }
 
                     continue;
@@ -69,46 +69,17 @@ public sealed class GondolaEngineSchematicReader
                     currentPartNumberDigits.Clear();
 
                     parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
-                    this.logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
+                    logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
                 }
 
                 if (lines[y][x] != '.')
                 {
                     symbols.Add(new GondolaEngineSchematicSymbol(lines[y][x], y, x));
-                    this.logger.LogTrace("Found symbol {Symbol} at {Y},{X}", lines[y][x], y, x);
+                    logger.LogTrace("Found symbol {Symbol} at {Y},{X}", lines[y][x], y, x);
                 }
             }
         }
 
-        return new GondolaEngineSchematic(schematic, parts.Where(p => symbols.Any(s => IsAdjacent(p, s))).ToArray(), symbols);
-    }
-
-    private static bool IsAdjacent(GondolaEngineSchematicPart partNumber, GondolaEngineSchematicSymbol symbol)
-    {
-        return partNumber.X.Any(partNumberX => Math.Abs(symbol.X - partNumberX) <= 1 && Math.Abs(symbol.Y - partNumber.Y) <= 1);
+        return new GondolaEngineSchematic(schematic, parts.Where(p => symbols.Any(s => s.IsAdjacent(p))).ToArray(), symbols);
     }
 }
-
-/// <summary>
-/// Represents a Gondola Engine Schematic.
-/// </summary>
-/// <param name="Schematic">The schematic, represented as a 2D array of characters.</param>
-/// <param name="PartNumbers">The possible part numbers in the schematic.</param>
-/// <param name="Symbols">The symbols in the schematic.</param>
-public sealed record GondolaEngineSchematic(char[,] Schematic, IReadOnlyCollection<GondolaEngineSchematicPart> PartNumbers, IReadOnlyCollection<GondolaEngineSchematicSymbol> Symbols);
-
-/// <summary>
-/// Represents an engine schematic part number.
-/// </summary>
-/// <param name="Number">The part number from the schematic.</param>
-/// <param name="Y">The Y coordinate of the number in the schematic.</param>
-/// <param name="X">The X coordinates of the number in the schematic.</param>
-public sealed record GondolaEngineSchematicPart(int Number, int Y, int[] X);
-
-/// <summary>
-/// Represents a Gondola Engine Schematic Symbol.
-/// </summary>
-/// <param name="Symbol">The symbol.</param>
-/// <param name="Y">The Y coordinate of the symbol in the schematic.</param>
-/// <param name="X">The X coordinate of the symbol in the schematic.</param>
-public sealed record GondolaEngineSchematicSymbol(char Symbol, int Y, int X);

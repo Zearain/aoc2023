@@ -5,9 +5,11 @@
 using System.Reflection;
 
 using FluentValidation;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using Zearain.AoC23.Application.AdventDays.Services;
+using Zearain.AoC23.Application.AdventDays.Services.GondolaEngineSchematics;
 
 namespace Zearain.AoC23.Application;
 
