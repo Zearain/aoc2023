@@ -56,7 +56,7 @@ public sealed class GondolaEngineSchematicReader
                         currentPartNumberDigits.Clear();
 
                         parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
-                        logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
+                        this.logger.FoundPartNumber(partNumber, y, partNumberX);
                     }
 
                     continue;
@@ -69,13 +69,13 @@ public sealed class GondolaEngineSchematicReader
                     currentPartNumberDigits.Clear();
 
                     parts.Add(new GondolaEngineSchematicPart(partNumber, y, partNumberX));
-                    logger.LogTrace("Found part number {PartNumber} at {Y},{X}", partNumber, y, partNumberX);
+                    this.logger.FoundPartNumber(partNumber, y, partNumberX);
                 }
 
                 if (lines[y][x] != '.')
                 {
                     symbols.Add(new GondolaEngineSchematicSymbol(lines[y][x], y, x));
-                    logger.LogTrace("Found symbol {Symbol} at {Y},{X}", lines[y][x], y, x);
+                    this.logger.FoundSymbol(lines[y][x], y, x);
                 }
             }
         }
