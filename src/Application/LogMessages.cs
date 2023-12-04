@@ -34,4 +34,14 @@ public static partial class Log
         Level = LogLevel.Debug,
         Message = "Found symbol {Symbol} at {Y},{X}")]
     public static partial void FoundSymbol(this ILogger logger, char symbol, int y, int x);
+
+    /// <summary>
+    /// Logs that we read a certain number of scratchcards.
+    /// </summary>
+    /// <param name="logger">The logger.</param>
+    /// <param name="count">The number of scratchcards.</param>
+    [LoggerMessage(
+        Level = LogLevel.Debug,
+        Message = "Read {Count} scratchcards")]
+    public static partial void ReadScratchcards(this ILogger logger, int count);
 }

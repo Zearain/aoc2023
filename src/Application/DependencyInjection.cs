@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Zearain.AoC23.Application.AdventDays.Services;
 using Zearain.AoC23.Application.AdventDays.Services.GondolaEngineSchematics;
+using Zearain.AoC23.Application.AdventDays.Services.Scratchcards;
 
 namespace Zearain.AoC23.Application;
 
@@ -37,6 +38,7 @@ public static class DependencyInjection
 
         services.AddScoped<ColoredCubeGameService>();
         services.AddScoped<GondolaEngineSchematicReader>();
+        services.AddScoped<ScratchcardReader>();
 
         // services.AddValidatorsFromAssemblyContaining<DependencyInjection>();
         return services;
