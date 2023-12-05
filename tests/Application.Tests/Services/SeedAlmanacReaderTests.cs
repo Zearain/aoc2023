@@ -81,7 +81,7 @@ humidity-to-location map:
     }
 
     [TestCaseSource(nameof(AlmanacMapGetMappedValueTestCases))]
-    public int AlmanacMap_GetMappedValue_ReturnsExpectedValue(AlmanacMap map, int value)
+    public long AlmanacMap_GetMappedValue_ReturnsExpectedValue(AlmanacMap map, int value)
     {
         // Act
         var result = map.GetMappedValue(value);

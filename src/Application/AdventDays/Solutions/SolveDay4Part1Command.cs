@@ -9,7 +9,7 @@ using Zearain.AoC23.Domain.AdventDayAggregate.ValueObjects;
 namespace Zearain.AoC23.Application.AdventDays.Solutions;
 
 /// <summary>
-/// Represents the command to solve the first part of day 3.
+/// Represents the command to solve the first part of day 4.
 /// </summary>
 /// <param name="PartNumber">The part number to solve.</param>
 /// <param name="Input">The input to solve.</param>

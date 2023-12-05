@@ -17,7 +17,7 @@ public record AlmanacMap(string From, string To, MapRange[] Ranges)
     /// </summary>
     /// <param name="value">The value to map.</param>
     /// <returns>The mapped value.</returns>
-    public int GetMappedValue(int value)
+    public long GetMappedValue(long value)
     {
         var mappedRange = this.Ranges.FirstOrDefault(r => r.IsInRange(value));
         if (mappedRange is null)
@@ -33,7 +33,7 @@ public record AlmanacMap(string From, string To, MapRange[] Ranges)
     /// </summary>
     /// <param name="value">The value to check.</param>
     /// <returns>True if the value is in range, false otherwise.</returns>
-    public bool IsInRange(int value)
+    public bool IsInRange(long value)
     {
         return this.Ranges.Any(r => r.IsInRange(value));
     }

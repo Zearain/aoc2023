@@ -9,4 +9,4 @@ namespace Zearain.AoC23.Application.AdventDays.Services.SeedMapping;
 /// </summary>
 /// <param name="Type">The type of the mapping.</param>
 /// <param name="Value">The value of the mapping.</param>
-public record MappingResult(string Type, int Value);
+public record MappingResult(string Type, long Value);

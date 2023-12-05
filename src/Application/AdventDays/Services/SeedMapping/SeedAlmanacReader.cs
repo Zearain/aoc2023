@@ -31,7 +31,7 @@ public class SeedAlmanacReader
     /// </summary>
     /// <param name="almanac">The almanac to get the lowest mapped value for.</param>
     /// <returns>The lowest mapped value.</returns>
-    public static int GetLowestMappedValue(SeedAlmanac almanac)
+    public static long GetLowestMappedValue(SeedAlmanac almanac)
     {
         var mappings = almanac.GetSeedValueMappings();
         var lowestMappedValue = mappings.Select(x => x[^1].Value).Min();
@@ -49,7 +49,7 @@ public class SeedAlmanacReader
         var sectionLines = input.SectionLines;
 
         var seedType = sectionLines[0][0].Split(':')[0].Trim().TrimEnd('s');
-        var seedValues = sectionLines[0][0].Split(':')[1].Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Select(int.Parse).ToArray();
+        var seedValues = sectionLines[0][0].Split(':')[1].Trim().Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).Select(long.Parse).ToArray();
 
         var maps = new List<AlmanacMap>();
         for (int i = 1; i < sectionLines.Length; i++)
@@ -75,9 +75,9 @@ public class SeedAlmanacReader
         for (int i = 1; i < lines.Length; i++)
         {
             var splitLine = lines[i].Split(' ').Select(s => s.Trim()).ToArray();
-            var destinationStart = int.Parse(splitLine[0], CultureInfo.InvariantCulture);
-            var sourceStart = int.Parse(splitLine[1], CultureInfo.InvariantCulture);
-            var length = int.Parse(splitLine[2], CultureInfo.InvariantCulture);
+            var destinationStart = long.Parse(splitLine[0], CultureInfo.InvariantCulture);
+            var sourceStart = long.Parse(splitLine[1], CultureInfo.InvariantCulture);
+            var length = long.Parse(splitLine[2], CultureInfo.InvariantCulture);
             ranges.Add(new MapRange(sourceStart, destinationStart, length));
         }
 
