@@ -28,12 +28,12 @@ public class DayInput : ValueObject
     /// <summary>
     /// Gets the lines of the input.
     /// </summary>
-    public string[] Lines => SplitLines(this.RawInput);
+    public string[] Lines => SplitLines(this.GetEnvionmentSafeInput());
 
     /// <summary>
     /// Gets the sections of the input.
     /// </summary>
-    public string[] Sections => string.IsNullOrWhiteSpace(this.RawInput) ? Array.Empty<string>() : this.RawInput.Split($"{Environment.NewLine}{Environment.NewLine}");
+    public string[] Sections => string.IsNullOrWhiteSpace(this.RawInput) ? Array.Empty<string>() : this.GetEnvionmentSafeInput().Split($"{Environment.NewLine}{Environment.NewLine}");
 
     /// <summary>
     /// Gets the sections of the input, split into lines.
@@ -66,4 +66,9 @@ public class DayInput : ValueObject
     }
 
     private static string[] SplitLines(string input) => string.IsNullOrWhiteSpace(input) ? Array.Empty<string>() : input.Split(Environment.NewLine);
+
+    private string GetEnvionmentSafeInput()
+    {
+        return Environment.NewLine == "\r\n" ? this.RawInput : this.RawInput.Replace("\r\n", Environment.NewLine);
+    }
 }

@@ -4,7 +4,7 @@
     <Authors>Zearain</Authors>
     <Company>Zearain</Company>
     <Copyright>Zearain 2023</Copyright>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
