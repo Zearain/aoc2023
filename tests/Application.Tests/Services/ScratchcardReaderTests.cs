@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 using Zearain.AoC23.Application.AdventDays.Services.Scratchcards;
 
-namespace Zearain.AoC23.Application.Tests;
+namespace Zearain.AoC23.Application.Tests.Services;
 
 public class ScratchcardReaderTests
 {
